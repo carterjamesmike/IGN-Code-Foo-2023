@@ -6,16 +6,18 @@ const PollSchema = new Schema({
         required: true,
         trim: true
     },
-    pollOptions: {
-        type: Array,
-        required: true,
-        trim: true
-    },
-    pollVotes: {
-        type: Array,
-        required: true,
-        trim: true
-    },
+    pollOptions: [{
+        option: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        votes: {
+            type: Number,
+            required: true,
+            default: 0
+        }
+    }]
 });
 
 const Poll = model('Poll', PollSchema);

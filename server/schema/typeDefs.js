@@ -4,8 +4,13 @@ const typeDefs = gql`
     type Poll {
         _id: ID
         pollQuestion: String
-        pollOptions: [String]
-        pollVotes: [Int]
+        pollOptions: [PollOption]
+
+    }
+
+    type PollOption {
+        option: String
+        votes: Int
     }
 
     type Mutation {

@@ -8,9 +8,14 @@ const Poll = () => {
     const { loading, data, error } = useQuery(GET_POLL)
     const poll = data?.polls
 
+
+
     if (loading) {
         return <div>Loading...</div>
     }
+
+    console.log(poll)
+
 
   return (
     <div>
@@ -18,12 +23,13 @@ const Poll = () => {
             <div>
                 <h2 className='text-2xl'>{poll[0].pollQuestion}</h2>
                 {poll[0].pollOptions.map((option) => (
-                    <div key={option._id}>
-                        <input type='radio' name='poll' value={option} />
-                        <label>{option}</label>
+                    <div key={option.option}>
+                        <input type='radio' name='poll' value={option.option} />
+                        <label>{option.option}</label>
                     </div>
                 ))}
             </div>
+            
         </div>
     </div>
   )

@@ -5,8 +5,10 @@ export const GET_POLL = gql`
         polls {
             _id
             pollQuestion
-            pollOptions 
-            pollVotes
+            pollOptions {
+                option
+                votes
+            }
         }
     }
 `;
