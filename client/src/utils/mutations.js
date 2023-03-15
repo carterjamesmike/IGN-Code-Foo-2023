@@ -1,13 +1,12 @@
 import { gql } from '@apollo/client';
 
 export const ADD_VOTE = gql`
-    mutation addVote($pollId: ID!, $choiceId: ID!) {
-        addVote(pollId: $pollId, choiceId: $choiceId) {
+    mutation addVote($pollId: ID!, $option: String!) {
+        addVote(pollId: $pollId, option: $option) {
             _id
-            question
-            choices {
-                _id
-                choice
+            pollQuestion
+            pollOptions {
+                option
                 votes
             }
         }
