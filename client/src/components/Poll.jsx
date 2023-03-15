@@ -1,25 +1,37 @@
 import React, { useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { useForm } from 'react-hook-form'
+import { VictoryBar, VictoryChart } from 'victory'
 
 import { GET_POLL } from '../utils/queries'
 import { ADD_VOTE } from '../utils/mutations'
 
 const Poll = () => {
     const { loading, data, error } = useQuery(GET_POLL)
-    const poll = data?.polls
+    
     const [addVote, { error: mutationError }] = useMutation(ADD_VOTE)
     const { register, handleSubmit, errors } = useForm()
+    
+    //Victory bar data
+
 
 
     if (loading) {
-        return <div>Loading...</div>
+        return <div>Loading...</div>    
     }
 
     if (error) {
         return <div>Error: {error.message}</div>
     }
-    
+
+    if (mutationError) {
+        return <div>Error: {mutationError.message}</div>
+    }
+
+    const poll = data?.polls
+    const pollData = poll[0].pollOptions.map((option) => {
+        return {x: option.option, y: option.votes}
+    })
     //console.log(poll[0])
 
     //Function to increase the vote by 1
@@ -55,6 +67,12 @@ const Poll = () => {
             </div>
             
         </div>
+        <VictoryChart domainPadding={20}>
+        <VictoryBar
+            data={pollData}
+        />            
+        </VictoryChart>
+
     </div>
   )
 }
