@@ -10,9 +10,9 @@ const resolvers = {
 
     Mutation: {
         addVote: async (parent, { pollId, option }) => {
-            const poll = await Poll.findByIdAndUpdate(
-                pollId,
-                { $inc: { [`pollVotes.${option}`]: 1 } },
+            const poll = await Poll.findOneAndUpdate(
+                { _id: pollId, 'pollOptions.option': option },
+                { $inc: { 'pollOptions.$.votes': 1 } },
                 { new: true }
             );
             return poll;
